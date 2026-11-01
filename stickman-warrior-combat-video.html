@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stickman Warrior Combat Sequence</title>
+  <style>
+    :root {
+      --bg: #03080b;
+      --grid: rgba(0, 212, 255, 0.08);
+      --gold: #f59e0b;
+      --cyan: #00d4ff;
+      --white: #eafcff;
+      --line: #080d12;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 44%, rgba(0, 212, 255, 0.13), transparent 28%),
+        radial-gradient(circle at 50% 78%, rgba(245, 158, 11, 0.16), transparent 24%),
+        linear-gradient(140deg, #010305, #071317 52%, #020406);
+      color: var(--white);
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .video-shell {
+      width: min(960px, calc(100vw - 28px));
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 212, 255, 0.32);
+      background:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+        radial-gradient(circle at 50% 74%, rgba(245, 158, 11, 0.14), transparent 23%),
+        radial-gradient(circle at 50% 42%, rgba(0, 212, 255, 0.12), transparent 38%),
+        var(--bg);
+      background-size: 44px 44px, 44px 44px, auto, auto, auto;
+      box-shadow: 0 24px 90px rgba(0, 0, 0, 0.55), inset 0 0 90px rgba(0, 212, 255, 0.05);
+    }
+
+    .video-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.12), transparent),
+        repeating-linear-gradient(0deg, transparent 0 3px, rgba(255, 255, 255, 0.025) 3px 4px);
+      opacity: 0.55;
+      mix-blend-mode: screen;
+      animation: scan 5s linear infinite;
+    }
+
+    @keyframes scan {
+      from { background-position: -960px 0, 0 0; }
+      to { background-position: 960px 0, 0 0; }
+    }
+
+    .camera {
+      position: absolute;
+      inset: 0;
+      transform-origin: center;
+    }
+
+    .video-shell.playing .camera {
+      animation: cameraSequence 9.6s cubic-bezier(.2,.7,.18,1) forwards;
+    }
+
+    @keyframes cameraSequence {
+      0%, 15% { transform: scale(1) translate(0, 0); }
+      21%, 31% { transform: scale(1.09) translate(0, -8px); }
+      36% { transform: scale(1.02) translate(8px, 0); }
+      38% { transform: scale(1.03) translate(-10px, 2px); }
+      40% { transform: scale(1.02) translate(5px, -1px); }
+      52%, 60% { transform: scale(1.04) translate(0, -4px); }
+      67% { transform: scale(1.02) translate(-7px, 2px); }
+      68% { transform: scale(1.02) translate(8px, -2px); }
+      69% { transform: scale(1.02) translate(0, 0); }
+      78% { transform: scale(1.03) translate(10px, 0); }
+      80% { transform: scale(1.03) translate(-12px, 2px); }
+      82%, 100% { transform: scale(1) translate(0, 0); }
+    }
+
+    .arena-floor {
+      position: absolute;
+      left: 22%;
+      right: 22%;
+      bottom: 16%;
+      height: 13%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(0, 0, 0, 0.58), transparent 68%);
+      filter: blur(2px);
+    }
+
+    .actor {
+      position: absolute;
+      left: 50%;
+      bottom: 13%;
+      width: 320px;
+      height: 360px;
+      transform: translateX(-50%);
+      transform-origin: 50% 88%;
+      filter: drop-shadow(0 22px 0 rgba(0, 0, 0, 0.28));
+    }
+
+    .video-shell.playing .actor {
+      animation: bodySequence 9.6s ease-in-out forwards;
+    }
+
+    @keyframes bodySequence {
+      0%, 10%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+      16%, 28% { transform: translateX(-50%) translateY(-9px) rotate(-2deg) scale(1.03); }
+      35% { transform: translateX(-41%) translateY(-5px) rotate(8deg); }
+      40% { transform: translateX(-57%) translateY(0) rotate(-7deg); }
+      45% { transform: translateX(-48%) translateY(-3px) rotate(3deg); }
+      58%, 66% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+      78% { transform: translateX(-38%) translateY(-5px) rotate(11deg); }
+      82% { transform: translateX(-64%) translateY(9px) rotate(-13deg); }
+      90% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+    }
+
+    .stick {
+      position: absolute;
+      inset: 0;
+    }
+
+    .line {
+      position: absolute;
+      background: linear-gradient(180deg, #111820, #4b5661 50%, #0e151b);
+      border: 4px solid var(--line);
+      border-radius: 999px;
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08), 0 0 16px rgba(245, 158, 11, 0.18);
+    }
+
+    .head {
+      position: absolute;
+      left: 132px;
+      top: 22px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 36% 28%, #87919b, #303942 58%, #0e151b);
+      border: 5px solid var(--line);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.28);
+    }
+
+    .head::before {
+      content: "";
+      position: absolute;
+      left: -14px;
+      top: -24px;
+      width: 86px;
+      height: 38px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      clip-path: polygon(0 100%, 18% 12%, 50% 72%, 82% 12%, 100% 100%);
+      filter: drop-shadow(0 0 12px var(--gold));
+      opacity: 0.72;
+    }
+
+    .torso {
+      left: 147px;
+      top: 82px;
+      width: 28px;
+      height: 112px;
+      transform: rotate(-6deg);
+    }
+
+    .arm.left {
+      left: 90px;
+      top: 126px;
+      width: 24px;
+      height: 116px;
+      transform: rotate(66deg);
+      transform-origin: 50% 8%;
+    }
+
+    .arm.right {
+      left: 205px;
+      top: 84px;
+      width: 24px;
+      height: 132px;
+      transform: rotate(-72deg);
+      transform-origin: 50% 8%;
+    }
+
+    .leg.left {
+      left: 101px;
+      top: 190px;
+      width: 25px;
+      height: 132px;
+      transform: rotate(34deg);
+      transform-origin: 50% 6%;
+    }
+
+    .leg.right {
+      left: 193px;
+      top: 188px;
+      width: 25px;
+      height: 132px;
+      transform: rotate(-30deg);
+      transform-origin: 50% 6%;
+    }
+
+    .foot {
+      position: absolute;
+      width: 48px;
+      height: 18px;
+      background: #26323d;
+      border: 4px solid var(--line);
+      border-radius: 999px;
+    }
+
+    .foot.left { left: 58px; top: 319px; transform: rotate(-13deg); }
+    .foot.right { left: 213px; top: 319px; transform: rotate(13deg); }
+
+    .armor {
+      position: absolute;
+      left: 103px;
+      top: 96px;
+      width: 118px;
+      height: 92px;
+      clip-path: polygon(18% 0, 82% 0, 100% 40%, 50% 100%, 0 40%);
+      background: linear-gradient(145deg, rgba(245, 158, 11, 0.28), rgba(8, 13, 18, 0.92) 42%, rgba(245, 158, 11, 0.18));
+      border: 0;
+      filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.32));
+    }
+
+    .armor::before {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      clip-path: inherit;
+      border: 4px solid var(--gold);
+      box-shadow: inset 0 0 20px rgba(245, 158, 11, 0.28), 0 0 12px rgba(245, 158, 11, 0.48);
+    }
+
+    .core {
+      position: absolute;
+      left: 149px;
+      top: 122px;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff 0 18%, var(--gold) 20% 58%, #15100a 60%);
+      box-shadow: 0 0 22px var(--gold);
+    }
+
+    .sword {
+      position: absolute;
+      transform-origin: 50% 88%;
+      filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.48));
+    }
+
+    .sword.primary {
+      right: 5px;
+      top: -6px;
+      width: 62px;
+      height: 266px;
+      transform: rotate(-43deg);
+      filter: drop-shadow(0 0 24px rgba(245, 158, 11, 0.82));
+    }
+
+    .sword.secondary {
+      left: 18px;
+      top: 188px;
+      width: 44px;
+      height: 162px;
+      transform: rotate(-79deg);
+      opacity: 0.92;
+    }
+
+    .sword.primary::before {
+      content: "";
+      position: absolute;
+      left: -42px;
+      top: 16px;
+      width: 142px;
+      height: 214px;
+      border-radius: 50%;
+      border-left: 3px solid rgba(245, 158, 11, 0.42);
+      filter: blur(0.2px) drop-shadow(0 0 10px rgba(245, 158, 11, 0.62));
+      opacity: 0.72;
+    }
+
+    .video-shell.playing .sword.primary::before {
+      animation: flexAura 9.6s ease-out forwards;
+    }
+
+    @keyframes flexAura {
+      0%, 14% { opacity: 0.72; transform: scale(1); }
+      22%, 30% { opacity: 1; transform: scale(1.12); }
+      36%, 100% { opacity: 0; transform: scale(1.38); }
+    }
+
+    .blade {
+      position: absolute;
+      left: 17px;
+      top: 0;
+      width: 28px;
+      height: 205px;
+      background:
+        linear-gradient(90deg, #f8ffff 0 22%, #ffd37a 35%, #f7a91e 58%, #6d3c08 100%);
+      clip-path: polygon(50% 0, 100% 10%, 78% 100%, 22% 100%, 0 10%);
+      border: 3px solid #f9fbff;
+      box-shadow: inset 8px 0 0 rgba(255,255,255,.42), inset -8px 0 0 rgba(0,0,0,.24);
+    }
+
+    .blade::before {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 14px;
+      width: 3px;
+      height: 170px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 8px #fff;
+    }
+
+    .guard {
+      position: absolute;
+      left: 0;
+      top: 186px;
+      width: 62px;
+      height: 15px;
+      background: linear-gradient(90deg, #53370c, #ffe08a, var(--gold), #53370c);
+      border-radius: 999px;
+      box-shadow: 0 0 12px var(--gold);
+    }
+
+    .hilt {
+      position: absolute;
+      left: 24px;
+      top: 198px;
+      width: 14px;
+      height: 58px;
+      background:
+        repeating-linear-gradient(180deg, #68451c 0 7px, #191009 7px 13px);
+      border: 3px solid #0b0805;
+      border-radius: 999px;
+    }
+
+    .pommel {
+      position: absolute;
+      left: 18px;
+      top: 250px;
+      width: 26px;
+      height: 26px;
+      background: radial-gradient(circle, #ffd37a, #15100a 65%);
+      clip-path: polygon(50% 100%, 100% 0, 0 0);
+      filter: drop-shadow(0 0 8px var(--gold));
+    }
+
+    .secondary .blade { height: 112px; width: 20px; left: 12px; border-width: 2px; }
+    .secondary .blade::before { left: 8px; height: 86px; }
+    .secondary .guard { top: 102px; width: 43px; height: 11px; }
+    .secondary .hilt { top: 111px; left: 17px; height: 43px; width: 12px; border-width: 2px; }
+    .secondary .pommel { top: 151px; left: 12px; width: 21px; height: 21px; }
+
+    .energy,
+    .slash,
+    .block,
+    .damage-flash,
+    .phase-label {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .energy {
+      left: 50%;
+      top: 46%;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      border: 3px solid var(--cyan);
+      box-shadow: 0 0 40px var(--cyan), inset 0 0 36px rgba(0, 212, 255, 0.25);
+      opacity: 0;
+    }
+
+    .video-shell.playing .energy {
+      animation: energyCharge 9.6s ease-out forwards;
+    }
+
+    @keyframes energyCharge {
+      0%, 12% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+      18%, 29% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      34%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.45); }
+    }
+
+    .video-shell.playing .sword.primary {
+      animation: swordPrimary 9.6s ease-in-out forwards;
+    }
+
+    .video-shell.playing .sword.secondary {
+      animation: swordSecondary 9.6s ease-in-out forwards;
+    }
+
+    @keyframes swordPrimary {
+      0%, 12%, 100% { transform: rotate(-43deg); }
+      18%, 28% { transform: rotate(-63deg) translate(-10px, -16px) scale(1.06); }
+      34% { transform: rotate(-118deg) translate(14px, -30px); }
+      39% { transform: rotate(48deg) translate(-23px, -17px); }
+      44% { transform: rotate(-52deg) translate(9px, 5px); }
+      58%, 68% { transform: rotate(-82deg) translate(-36px, 30px); }
+      79% { transform: rotate(22deg) translate(-20px, -6px); }
+      90% { transform: rotate(-43deg); }
+    }
+
+    @keyframes swordSecondary {
+      0%, 12%, 100% { transform: rotate(-79deg); }
+      18%, 28% { transform: rotate(-92deg) translate(-12px, -8px); }
+      34% { transform: rotate(32deg) translate(22px, -18px); }
+      39% { transform: rotate(-112deg) translate(-16px, -8px); }
+      58%, 68% { transform: rotate(36deg) translate(88px, -36px); }
+      81% { transform: rotate(-88deg) translate(-28px, 10px); }
+      90% { transform: rotate(-79deg); }
+    }
+
+    .slash {
+      left: 50%;
+      top: 45%;
+      width: 360px;
+      height: 90px;
+      transform: translate(-50%, -50%) rotate(-18deg) scaleX(0);
+      border-top: 8px solid var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 -8px 30px rgba(0, 212, 255, 0.75);
+      opacity: 0;
+    }
+
+    .slash.two {
+      top: 52%;
+      transform: translate(-50%, -50%) rotate(24deg) scaleX(0);
+      border-top-color: var(--gold);
+      box-shadow: 0 -8px 30px rgba(245, 158, 11, 0.75);
+    }
+
+    .video-shell.playing .slash.one { animation: slashOne 9.6s ease-out forwards; }
+    .video-shell.playing .slash.two { animation: slashTwo 9.6s ease-out forwards; }
+
+    @keyframes slashOne {
+      0%, 33%, 42%, 100% { opacity: 0; transform: translate(-50%, -50%) rotate(-18deg) scaleX(0); }
+      36% { opacity: 1; transform: translate(-50%, -50%) rotate(-18deg) scaleX(1); }
+      39% { opacity: 0; transform: translate(-42%, -50%) rotate(-18deg) scaleX(1.2); }
+    }
+
+    @keyframes slashTwo {
+      0%, 38%, 47%, 100% { opacity: 0; transform: translate(-50%, -50%) rotate(24deg) scaleX(0); }
+      41% { opacity: 1; transform: translate(-50%, -50%) rotate(24deg) scaleX(1); }
+      44% { opacity: 0; transform: translate(-56%, -50%) rotate(24deg) scaleX(1.18); }
+    }
+
+    .block {
+      left: 50%;
+      top: 48%;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      border: 4px solid var(--gold);
+      box-shadow: 0 0 24px var(--gold), inset 0 0 24px rgba(245, 158, 11, 0.25);
+      opacity: 0;
+    }
+
+    .video-shell.playing .block { animation: blockPulse 9.6s ease-out forwards; }
+
+    @keyframes blockPulse {
+      0%, 57%, 70%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+      62% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      68% { opacity: 0; transform: translate(-50%, -50%) scale(1.8); }
+    }
+
+    .damage-flash {
+      inset: 0;
+      background: radial-gradient(circle at 50% 43%, rgba(244, 63, 94, 0.72), transparent 36%);
+      opacity: 0;
+    }
+
+    .video-shell.playing .damage-flash { animation: damageFlash 9.6s ease-out forwards; }
+
+    @keyframes damageFlash {
+      0%, 76%, 86%, 100% { opacity: 0; }
+      79% { opacity: 1; }
+      82% { opacity: 0.24; }
+    }
+
+    .phase-label {
+      left: 24px;
+      top: 20px;
+      min-width: 170px;
+      padding: 10px 13px;
+      border: 1px solid rgba(0, 212, 255, 0.35);
+      background: rgba(4, 12, 16, 0.76);
+      color: #dff8ff;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .phase-label span { color: var(--gold); font-weight: 900; }
+
+    .controls {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    button {
+      min-height: 44px;
+      border: 1px solid rgba(245, 158, 11, 0.58);
+      background: rgba(245, 158, 11, 0.12);
+      color: #fff4dc;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+
+    .timeline {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.14);
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--gold), var(--cyan), #f43f5e);
+      box-shadow: 0 0 16px var(--cyan);
+    }
+
+    .video-shell.playing .bar {
+      animation: progress 9.6s linear forwards;
+    }
+
+    @keyframes progress {
+      to { width: 100%; }
+    }
+
+    @media (max-width: 720px) {
+      .actor { width: 190px; height: 270px; }
+      .controls { bottom: 10px; }
+      .phase-label { font-size: 0.62rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="video-shell" id="scene">
+    <div class="camera">
+      <div class="arena-floor"></div>
+      <div class="energy"></div>
+      <div class="slash one"></div>
+      <div class="slash two"></div>
+      <div class="block"></div>
+      <div class="actor" aria-label="Futuristic stickman warrior combat animation">
+        <div class="stick">
+          <div class="head"></div>
+          <div class="line torso"></div>
+          <div class="line arm left"></div>
+          <div class="line arm right"></div>
+          <div class="line leg left"></div>
+          <div class="line leg right"></div>
+          <div class="foot left"></div>
+          <div class="foot right"></div>
+          <div class="armor"></div>
+          <div class="core"></div>
+          <div class="sword primary">
+            <div class="blade"></div><div class="guard"></div><div class="hilt"></div><div class="pommel"></div>
+          </div>
+          <div class="sword secondary">
+            <div class="blade"></div><div class="guard"></div><div class="hilt"></div><div class="pommel"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="damage-flash"></div>
+    <div class="phase-label" id="phaseLabel">Phase <span>Idle</span></div>
+    <div class="controls">
+      <button id="playBtn" type="button">Play Sequence</button>
+      <div class="timeline"><div class="bar"></div></div>
+    </div>
+  </main>
+
+  <script>
+    const scene = document.getElementById("scene");
+    const playBtn = document.getElementById("playBtn");
+    const phaseLabel = document.getElementById("phaseLabel");
+    let audioContext;
+    let timers = [];
+
+    function tone(freq, start, duration, type = "sine", gain = 0.05) {
+      const osc = audioContext.createOscillator();
+      const vol = audioContext.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioContext.currentTime + start);
+      vol.gain.setValueAtTime(0.0001, audioContext.currentTime + start);
+      vol.gain.exponentialRampToValueAtTime(gain, audioContext.currentTime + start + 0.02);
+      vol.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + start + duration);
+      osc.connect(vol).connect(audioContext.destination);
+      osc.start(audioContext.currentTime + start);
+      osc.stop(audioContext.currentTime + start + duration + 0.03);
+    }
+
+    function noise(start, duration, gain = 0.06) {
+      const buffer = audioContext.createBuffer(1, audioContext.sampleRate * duration, audioContext.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+      const source = audioContext.createBufferSource();
+      const vol = audioContext.createGain();
+      source.buffer = buffer;
+      vol.gain.value = gain;
+      source.connect(vol).connect(audioContext.destination);
+      source.start(audioContext.currentTime + start);
+    }
+
+    function playAudio() {
+      audioContext = audioContext || new AudioContext();
+      tone(110, 1.1, 1.45, "sawtooth", 0.035);
+      tone(220, 1.35, 1.2, "triangle", 0.04);
+      tone(520, 1.9, 0.35, "sine", 0.035);
+      noise(3.35, 0.18, 0.075);
+      tone(720, 3.34, 0.18, "triangle", 0.045);
+      noise(3.9, 0.2, 0.08);
+      tone(580, 3.88, 0.2, "triangle", 0.04);
+      noise(5.95, 0.38, 0.09);
+      tone(170, 5.95, 0.42, "square", 0.055);
+      noise(7.48, 0.32, 0.085);
+      tone(92, 7.5, 0.38, "sawtooth", 0.05);
+    }
+
+    function setPhase(label, at) {
+      timers.push(setTimeout(() => {
+        phaseLabel.innerHTML = `Phase <span>${label}</span>`;
+      }, at));
+    }
+
+    function playSequence() {
+      timers.forEach(clearTimeout);
+      timers = [];
+      scene.classList.remove("playing");
+      void scene.offsetWidth;
+      scene.classList.add("playing");
+      playBtn.textContent = "Replay";
+      setPhase("Skill Activation", 300);
+      setPhase("Attack", 3150);
+      setPhase("Defense", 5350);
+      setPhase("Damage", 7350);
+      setPhase("Recovered", 8950);
+      playAudio();
+    }
+
+    playBtn.addEventListener("click", playSequence);
+  </script>
+</body>
+</html>

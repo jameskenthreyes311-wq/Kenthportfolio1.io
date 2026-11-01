@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KENTH.SYS - Typing Protocol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+  <div class="hero-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="scanline"></div>
+
+  <header>
+    <a class="back-link" href="../kenth_portfolio.html#games" aria-label="Back to portfolio games">BACK</a>
+    <div class="header-logo"><span class="logo-bracket">[</span>KENTH.SYS<span class="logo-bracket">]</span></div>
+    <div class="header-sub">TYPING PROTOCOL v1.0</div>
+    <div class="header-status"><span class="status-dot"></span> INPUT ONLINE</div>
+  </header>
+
+  <main>
+    <section class="control-grid" aria-label="Typing settings">
+      <div class="control-group">
+        <div class="control-label">// MODE</div>
+        <div class="segmented" id="mode-controls">
+          <button class="seg-btn active" data-mode="focus">Focus</button>
+          <button class="seg-btn" data-mode="system">System</button>
+          <button class="seg-btn" data-mode="code">Code</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="control-label">// TIME</div>
+        <div class="segmented" id="time-controls">
+          <button class="seg-btn" data-time="30">30s</button>
+          <button class="seg-btn active" data-time="60">60s</button>
+          <button class="seg-btn" data-time="90">90s</button>
+        </div>
+      </div>
+      <button class="restart-btn" id="restart-btn"><span class="btn-icon">↺</span> RESET</button>
+    </section>
+
+    <section class="hud">
+      <div class="hud-panel">
+        <div class="hud-label">// WPM</div>
+        <div class="hud-value" id="wpm">000</div>
+      </div>
+      <div class="hud-panel">
+        <div class="hud-label">// ACCURACY</div>
+        <div class="hud-value" id="accuracy">100%</div>
+      </div>
+      <div class="hud-panel">
+        <div class="hud-label">// ERRORS</div>
+        <div class="hud-value" id="errors">000</div>
+      </div>
+      <div class="hud-panel">
+        <div class="hud-label">// TIME</div>
+        <div class="hud-value" id="timer">60</div>
+      </div>
+    </section>
+
+    <section class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+      <div class="progress-label" id="progress-label">SYNC: 0%</div>
+    </section>
+
+    <section class="typing-panel">
+      <div class="transmission-header">
+        <span>// TRANSMISSION</span>
+        <span id="char-count">0 / 0</span>
+      </div>
+      <div class="quote-display" id="quote-display" aria-label="Typing prompt"></div>
+      <textarea id="typing-input" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="Typing input" placeholder="Start typing here..."></textarea>
+    </section>
+  </main>
+
+  <div class="result-overlay" id="result-overlay">
+    <div class="result-box">
+      <div class="terminal-bar">
+        <span class="t-dot t-green"></span>
+        <span class="t-title">PROTOCOL REPORT</span>
+      </div>
+      <div class="result-content">
+        <div class="result-icon">⌁</div>
+        <h2 class="result-title">INPUT ANALYZED</h2>
+        <p class="result-sub">Transmission complete. Performance metrics stabilized.</p>
+        <div class="result-stats">
+          <div><span>WPM</span><strong id="result-wpm">0</strong></div>
+          <div><span>Accuracy</span><strong id="result-accuracy">0%</strong></div>
+          <div><span>Errors</span><strong id="result-errors">0</strong></div>
+        </div>
+        <button class="restart-btn" id="result-restart">↺ RUN AGAIN</button>
+      </div>
+      <div class="result-corner result-corner-tl"></div>
+      <div class="result-corner result-corner-br"></div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Designed by</span>
+    <a href="../kenth_portfolio.html#home" class="footer-link">Kenth James P. Reyes</a>
+    <span>- UI/UX Designer & AI Creator</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

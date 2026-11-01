@@ -1,0 +1,316 @@
+{
+  "migrate": [
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2041,
+      "currentValue": "kjr-3d-logo.png",
+      "context": "img src — nav logo",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/kjr-3d-logo.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2627,
+      "currentValue": "libraria-gallery/cover.png",
+      "context": "inline style background-image url()",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/libraria-gallery/cover.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2639,
+      "currentValue": "vid3.mp4",
+      "context": "onclick openVideoLightbox() first argument",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/vid3.mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2640,
+      "currentValue": "vid3.mp4",
+      "context": "video src attribute",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/vid3.mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2654,
+      "currentValue": "vid1.mp4",
+      "context": "onclick openVideoLightbox() first argument",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/vid1.mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2655,
+      "currentValue": "vid1.mp4",
+      "context": "video src attribute",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/vid1.mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2667,
+      "currentValue": "assets/video/asset.mp4",
+      "context": "onclick openVideoLightbox() first argument",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assets/video/asset.mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2668,
+      "currentValue": "assets/video/asset.mp4",
+      "context": "video src attribute",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assets/video/asset.mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2680,
+      "currentValue": "assets/video/asset (1).mp4",
+      "context": "onclick openVideoLightbox() first argument — space must be encoded",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assets/video/asset%20(1).mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2681,
+      "currentValue": "assets/video/asset (1).mp4",
+      "context": "video src attribute — space must be encoded",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assets/video/asset%20(1).mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2693,
+      "currentValue": "assets/video/Woman_holding_product_and_speaking_907cff08.mp4",
+      "context": "onclick openVideoLightbox() first argument",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assets/video/Woman_holding_product_and_speaking_907cff08.mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2694,
+      "currentValue": "assets/video/Woman_holding_product_and_speaking_907cff08.mp4",
+      "context": "video src attribute",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assets/video/Woman_holding_product_and_speaking_907cff08.mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2706,
+      "currentValue": "darbc1.mp4",
+      "context": "onclick openVideoLightbox() first argument",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/darbc1.mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2707,
+      "currentValue": "darbc1.mp4",
+      "context": "video src attribute",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/darbc1.mp4"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2721,
+      "currentValue": "tiktok1.jpg",
+      "context": "img src — social media card",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/tiktok1.jpg"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2744,
+      "currentValue": "instagram-profile.jpg",
+      "context": "img src — Instagram profile",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/instagram-profile.jpg"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2748,
+      "currentValue": "instagram-grid.jpg",
+      "context": "img src — Instagram grid",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/instagram-grid.jpg"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3008,
+      "currentValue": "kjr-3d-logo.png",
+      "context": "img src — footer logo",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/kjr-3d-logo.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3168,
+      "currentValue": "assessment-quiz-gallery/01-dashboard.png",
+      "context": "JS assessmentQuizGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assessment-quiz-gallery/01-dashboard.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3169,
+      "currentValue": "assessment-quiz-gallery/02-quiz-overview.png",
+      "context": "JS assessmentQuizGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assessment-quiz-gallery/02-quiz-overview.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3170,
+      "currentValue": "assessment-quiz-gallery/03-final-checklist.png",
+      "context": "JS assessmentQuizGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assessment-quiz-gallery/03-final-checklist.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3171,
+      "currentValue": "assessment-quiz-gallery/04-quiz-taking.png",
+      "context": "JS assessmentQuizGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assessment-quiz-gallery/04-quiz-taking.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3172,
+      "currentValue": "assessment-quiz-gallery/05-badges.png",
+      "context": "JS assessmentQuizGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assessment-quiz-gallery/05-badges.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3173,
+      "currentValue": "assessment-quiz-gallery/06-leaderboard.png",
+      "context": "JS assessmentQuizGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/assessment-quiz-gallery/06-leaderboard.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3176,
+      "currentValue": "blotter-management-gallery/01-dashboard.png",
+      "context": "JS blotterManagementGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/blotter-management-gallery/01-dashboard.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3177,
+      "currentValue": "blotter-management-gallery/02-new-blotter.png",
+      "context": "JS blotterManagementGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/blotter-management-gallery/02-new-blotter.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3178,
+      "currentValue": "blotter-management-gallery/03-select-location.png",
+      "context": "JS blotterManagementGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/blotter-management-gallery/03-select-location.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3179,
+      "currentValue": "blotter-management-gallery/04-report-details.png",
+      "context": "JS blotterManagementGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/blotter-management-gallery/04-report-details.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3182,
+      "currentValue": "darbc-homes-gallery/01-browse-homes.png",
+      "context": "JS darbcHomesGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/darbc-homes-gallery/01-browse-homes.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3183,
+      "currentValue": "darbc-homes-gallery/02-estate-availability.png",
+      "context": "JS darbcHomesGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/darbc-homes-gallery/02-estate-availability.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3184,
+      "currentValue": "darbc-homes-gallery/03-selected-lot.png",
+      "context": "JS darbcHomesGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/darbc-homes-gallery/03-selected-lot.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3187,
+      "currentValue": "libraria-gallery/01-home.png",
+      "context": "JS librariaGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/libraria-gallery/01-home.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3188,
+      "currentValue": "libraria-gallery/02-dashboard.png",
+      "context": "JS librariaGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/libraria-gallery/02-dashboard.png"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3191,
+      "currentValue": "tiktok1.jpg",
+      "context": "JS tiktokGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/tiktok1.jpg"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3194,
+      "currentValue": "instagram-profile.jpg",
+      "context": "JS instagramGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/instagram-profile.jpg"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3195,
+      "currentValue": "instagram-grid.jpg",
+      "context": "JS instagramGallery array src",
+      "cdnUrl": "https://cdn.jsdelivr.net/gh/kjthe3rd/portfolio-assets@main/root-images/instagram-grid.jpg"
+    }
+  ],
+  "skip": [
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 6,
+      "currentValue": "data:image/svg+xml,...",
+      "reason": "data URI — favicon embedded directly in HTML, not a static file"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2584,
+      "currentValue": "data:image/png;base64,...",
+      "reason": "data URI — base64-encoded project card thumbnail embedded in onclick handler"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2106,
+      "currentValue": "data:image/png;base64,...",
+      "reason": "data URI — base64-encoded image embedded in src attribute"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 2875,
+      "currentValue": "src=\"\"",
+      "reason": "empty src — lightbox img placeholder, populated dynamically by JS"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth_portfolio (1).html",
+      "line": 3259,
+      "currentValue": "player.src = ''",
+      "reason": "JS reset statement, not an asset path"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\kenth-dungeon-crawler.html",
+      "line": null,
+      "currentValue": "(none)",
+      "reason": "file contains no image or video asset references at all"
+    },
+    {
+      "file": "c:\\xampp\\htdocs\\PORTFOLIO\\stickman-warrior-combat-video.html",
+      "line": null,
+      "currentValue": "(none)",
+      "reason": "file contains no image or video asset references at all"
+    }
+  ],
+  "notes": {
+    "unreferencedRootFiles": [
+      "bms.png",
+      "darbc.png",
+      "seait.png",
+      "youtube.png"
+    ],
+    "unreferencedGalleryFiles": [
+      "assessment-quiz-gallery/07-portfolio-preview.png"
+    ],
+    "spaceEncodingRequired": {
+      "original": "assets/video/asset (1).mp4",
+      "encoded": "assets/video/asset%20(1).mp4"
+    },
+    "onclickArgsMustMatchSrc": "Every <video> card has a paired onclick='openVideoLightbox(path, title)' — both the src attribute and the onclick string argument must be updated to the same CDN URL"
+  }
+}

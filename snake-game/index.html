@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KENTH.SYS - Snake Protocol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+  <div class="hero-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="scanline"></div>
+
+  <header>
+    <a class="back-link" href="../kenth_portfolio.html#games" aria-label="Back to portfolio games">BACK</a>
+    <div class="header-logo"><span class="logo-bracket">[</span>KENTH.SYS<span class="logo-bracket">]</span></div>
+    <div class="header-sub">SNAKE PROTOCOL v1.0</div>
+    <div class="header-status"><span class="status-dot"></span> GRID ONLINE</div>
+  </header>
+
+  <main>
+    <section class="control-grid" aria-label="Snake settings">
+      <div class="control-group">
+        <div class="control-label">// SPEED</div>
+        <div class="segmented" id="speed-controls">
+          <button class="seg-btn" data-speed="slow">Calm</button>
+          <button class="seg-btn active" data-speed="normal">Core</button>
+          <button class="seg-btn" data-speed="fast">Rush</button>
+        </div>
+      </div>
+      <button class="restart-btn" id="pause-btn"><span class="btn-icon">Ⅱ</span> PAUSE</button>
+      <button class="restart-btn" id="restart-btn"><span class="btn-icon">↺</span> RESET</button>
+    </section>
+
+    <section class="hud">
+      <div class="hud-panel">
+        <div class="hud-label">// SCORE</div>
+        <div class="hud-value" id="score">000</div>
+      </div>
+      <div class="hud-panel">
+        <div class="hud-label">// BEST</div>
+        <div class="hud-value" id="best-score">000</div>
+      </div>
+      <div class="hud-panel">
+        <div class="hud-label">// LENGTH</div>
+        <div class="hud-value" id="length">003</div>
+      </div>
+      <div class="hud-panel">
+        <div class="hud-label">// STATUS</div>
+        <div class="hud-value status-text" id="status">RUN</div>
+      </div>
+    </section>
+
+    <section class="arena-wrap">
+      <div class="arena-top">
+        <span>// NEURAL GRID</span>
+        <span>Use arrow keys or WASD</span>
+      </div>
+      <canvas id="snake-canvas" width="600" height="600" aria-label="Snake game board"></canvas>
+    </section>
+
+    <section class="mobile-controls" aria-label="Mobile controls">
+      <button class="dir-btn up" data-dir="up">▲</button>
+      <button class="dir-btn left" data-dir="left">◀</button>
+      <button class="dir-btn down" data-dir="down">▼</button>
+      <button class="dir-btn right" data-dir="right">▶</button>
+    </section>
+  </main>
+
+  <div class="result-overlay" id="result-overlay">
+    <div class="result-box">
+      <div class="terminal-bar">
+        <span class="t-dot t-red"></span>
+        <span class="t-title">GRID COLLISION</span>
+      </div>
+      <div class="result-content">
+        <div class="result-icon">⌁</div>
+        <h2 class="result-title">PROTOCOL ENDED</h2>
+        <p class="result-sub">Signal path collapsed. Reboot the run and route the snake through the grid again.</p>
+        <div class="result-stats">
+          <div><span>Score</span><strong id="result-score">0</strong></div>
+          <div><span>Best</span><strong id="result-best">0</strong></div>
+          <div><span>Length</span><strong id="result-length">0</strong></div>
+        </div>
+        <button class="restart-btn" id="result-restart">↺ RUN AGAIN</button>
+      </div>
+      <div class="result-corner result-corner-tl"></div>
+      <div class="result-corner result-corner-br"></div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Designed by</span>
+    <a href="../kenth_portfolio.html#home" class="footer-link">Kenth James P. Reyes</a>
+    <span>- UI/UX Designer & AI Creator</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

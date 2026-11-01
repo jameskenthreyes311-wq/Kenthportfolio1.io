@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KENTH.SYS — Memory Protocol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Custom cursor (matches portfolio) -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- Animated background grid (matches portfolio hero) -->
+  <div class="hero-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- Scan line effect -->
+  <div class="scanline"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-logo">
+      <span class="logo-bracket">[</span>KENTH.SYS<span class="logo-bracket">]</span>
+    </div>
+    <div class="header-sub">MEMORY PROTOCOL v2.0</div>
+    <div class="header-status">
+      <span class="status-dot"></span> SYSTEM ONLINE
+    </div>
+  </header>
+
+  <main>
+    <!-- Difficulty -->
+    <div class="diff-row">
+      <button class="diff-btn active" data-pairs="6">
+        <span class="diff-label">EASY</span>
+        <span class="diff-sub">4 × 3</span>
+      </button>
+      <button class="diff-btn" data-pairs="8">
+        <span class="diff-label">MED</span>
+        <span class="diff-sub">4 × 4</span>
+      </button>
+      <button class="diff-btn" data-pairs="10">
+        <span class="diff-label">HARD</span>
+        <span class="diff-sub">5 × 4</span>
+      </button>
+    </div>
+
+    <!-- HUD -->
+    <div class="hud">
+      <div class="hud-panel">
+        <div class="hud-label">// MOVES</div>
+        <div class="hud-value" id="moves">000</div>
+      </div>
+      <div class="hud-panel">
+        <div class="hud-label">// PAIRS</div>
+        <div class="hud-value" id="pairs-found">00/06</div>
+      </div>
+      <div class="hud-panel">
+        <div class="hud-label">// ELAPSED</div>
+        <div class="hud-value" id="timer">0:00</div>
+      </div>
+      <button class="restart-btn" id="restart-btn">
+        <span class="btn-icon">↺</span> RESET
+      </button>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      <div class="progress-label" id="progress-label">PROTOCOL: 0%</div>
+    </div>
+
+    <!-- Card Grid -->
+    <div class="grid" id="grid"></div>
+
+  </main>
+
+  <!-- Win overlay -->
+  <div class="win-overlay" id="win-overlay">
+    <div class="win-box">
+      <div class="win-terminal-bar">
+        <span class="t-dot t-green"></span>
+        <span class="t-title">PROTOCOL COMPLETE</span>
+      </div>
+      <div class="win-content">
+        <div class="win-icon">✦</div>
+        <h2 class="win-title">MEMORY CLEARED</h2>
+        <p class="win-sub">All pairs matched. Neural link established.</p>
+        <div class="win-stats">
+          <div class="win-stat">
+            <span class="win-stat-label">MOVES</span>
+            <span class="win-stat-value" id="win-moves">—</span>
+          </div>
+          <div class="win-stat-divider">|</div>
+          <div class="win-stat">
+            <span class="win-stat-label">TIME</span>
+            <span class="win-stat-value" id="win-time">—</span>
+          </div>
+        </div>
+        <button class="restart-btn" id="win-restart">⟳ RUN AGAIN</button>
+      </div>
+      <div class="win-corner win-corner-tl"></div>
+      <div class="win-corner win-corner-br"></div>
+    </div>
+  </div>
+
+  <!-- Footer credit -->
+  <footer>
+    <span>Designed by</span>
+    <a href="#" class="footer-link">Kenth James P. Reyes</a>
+    <span>— UI/UX Designer & AI Creator</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

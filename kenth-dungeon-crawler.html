@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kenth Hangman</title>
+  <style>
+    :root {
+      --c1: #0C1E22;
+      --c2: #2D4A52;
+      --c3: #586C77;
+      --c4: #A0A3A8;
+      --white: #E8EDEF;
+      --cyan: #00d4ff;
+      --green: #45c486;
+      --red: #ef476f;
+      --panel: rgba(45, 74, 82, 0.15);
+      --line: rgba(88, 108, 119, 0.24);
+      --shadow: rgba(0, 0, 0, 0.42);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(ellipse at 60% 40%, rgba(45, 74, 82, 0.35) 0%, transparent 60%),
+        radial-gradient(ellipse at 10% 80%, rgba(88, 108, 119, 0.18) 0%, transparent 50%),
+        var(--c1);
+      color: var(--white);
+      font-family: Outfit, Inter, "Segoe UI", Arial, sans-serif;
+      padding: 18px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(88, 108, 119, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88, 108, 119, 0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes gridMove {
+      from { background-position: 0 0; }
+      to { background-position: 60px 60px; }
+    }
+
+    .game {
+      width: min(1080px, 100%);
+      min-height: min(720px, calc(100vh - 36px));
+      display: grid;
+      grid-template-columns: 0.95fr 1.2fr;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: rgba(12, 30, 34, 0.78);
+      box-shadow: 0 28px 80px var(--shadow);
+      position: relative;
+      z-index: 1;
+    }
+
+    .stage {
+      position: relative;
+      display: grid;
+      place-items: center;
+      padding: 26px;
+      background:
+        linear-gradient(rgba(88, 108, 119, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88, 108, 119, 0.07) 1px, transparent 1px),
+        radial-gradient(circle at 50% 72%, rgba(0, 212, 255, 0.12), transparent 34%),
+        rgba(6, 17, 20, 0.64);
+      background-size: 30px 30px, 30px 30px, auto, auto;
+      border-right: 1px solid var(--line);
+    }
+
+    .brand {
+      position: absolute;
+      left: 22px;
+      top: 18px;
+      font-weight: 950;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      color: var(--c4);
+    }
+
+    .drawing-wrap {
+      width: min(360px, 92%);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 0;
+      background: rgba(45, 74, 82, 0.12);
+      border: 1px solid var(--line);
+      box-shadow: inset 0 0 45px rgba(0, 212, 255, 0.04), 0 0 28px rgba(88, 108, 119, 0.16);
+    }
+
+    svg {
+      width: 86%;
+      height: 86%;
+      overflow: visible;
+    }
+
+    .gallows {
+      fill: none;
+      stroke: var(--c3);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .person {
+      fill: none;
+      stroke: var(--red);
+      stroke-width: 9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0;
+      transform-origin: center;
+      transition: opacity 0.25s ease;
+    }
+
+    .person.visible { opacity: 1; }
+    .person.head { fill: rgba(239, 71, 111, 0.08); filter: drop-shadow(0 0 8px rgba(239, 71, 111, 0.5)); }
+
+    .panel {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 20px;
+      padding: clamp(18px, 4vw, 36px);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Syne, Outfit, sans-serif;
+      font-size: clamp(2.2rem, 6vw, 4.6rem);
+      line-height: 0.9;
+      letter-spacing: 0;
+    }
+
+    header p {
+      color: var(--c4);
+      line-height: 1.65;
+    }
+
+    .score {
+      display: grid;
+      gap: 6px;
+      min-width: 132px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--panel);
+      font-size: 0.78rem;
+      color: var(--c4);
+    }
+
+    .score strong { color: var(--white); font-size: 1rem; }
+
+    .info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--panel);
+      color: var(--c4);
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .chip strong { color: var(--white); margin-left: 6px; }
+
+    .question-card {
+      margin-bottom: 14px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(ellipse at top left, rgba(0, 212, 255, 0.08), transparent 65%),
+        rgba(45, 74, 82, 0.12);
+      color: var(--c4);
+    }
+
+    .question-label {
+      margin-bottom: 8px;
+      color: var(--c3);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .question {
+      color: var(--white);
+      font-family: Syne, Outfit, sans-serif;
+      font-size: clamp(1.05rem, 2vw, 1.45rem);
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .word {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 26px 12px;
+      border-radius: 0;
+      background: rgba(45, 74, 82, 0.12);
+      border: 1px solid var(--line);
+      box-shadow: inset 0 -20px 40px rgba(0, 212, 255, 0.04);
+    }
+
+    .letter-box {
+      width: clamp(34px, 5.4vw, 54px);
+      height: clamp(44px, 6.8vw, 64px);
+      display: grid;
+      place-items: center;
+      border-bottom: 4px solid var(--c3);
+      color: var(--white);
+      font-size: clamp(1.5rem, 4.5vw, 2.7rem);
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .letter-box.space {
+      width: 22px;
+      border-bottom: 0;
+    }
+
+    .keyboard {
+      align-self: end;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+    }
+
+    .key {
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: rgba(6, 17, 20, 0.74);
+      color: var(--white);
+      font-size: 1.05rem;
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .key:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 0 18px rgba(0, 212, 255, 0.12);
+      border-color: var(--c3);
+      background: rgba(45, 74, 82, 0.28);
+    }
+
+    .key:disabled {
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .key.good {
+      color: #063a23;
+      background: rgba(69, 196, 134, 0.62);
+      border-color: rgba(69, 196, 134, 0.6);
+    }
+
+    .key.bad {
+      color: #5b0f24;
+      background: rgba(239, 71, 111, 0.58);
+      border-color: rgba(239, 71, 111, 0.58);
+    }
+
+    .message {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 64px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--panel);
+      color: var(--c4);
+      line-height: 1.45;
+    }
+
+    .message strong {
+      display: block;
+      color: var(--white);
+      font-size: 1.1rem;
+    }
+
+    .button {
+      min-height: 44px;
+      border: 0;
+      border-radius: 0;
+      background: linear-gradient(135deg, var(--c2), var(--c3));
+      color: white;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0 16px;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(88, 108, 119, 0.34);
+    }
+
+    .round-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(12, 30, 34, 0.88);
+      backdrop-filter: blur(14px);
+    }
+
+    .round-overlay.show { display: flex; }
+
+    .round-box {
+      position: relative;
+      width: min(440px, 100%);
+      padding: 30px;
+      border: 1px solid rgba(0, 212, 255, 0.28);
+      background:
+        radial-gradient(ellipse at top left, rgba(0, 212, 255, 0.1), transparent 62%),
+        rgba(12, 30, 34, 0.96);
+      box-shadow: 0 0 60px rgba(0, 212, 255, 0.14), inset 0 0 36px rgba(0, 212, 255, 0.035);
+      text-align: center;
+      animation: pop 0.3s ease;
+    }
+
+    .round-box::before,
+    .round-box::after {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      pointer-events: none;
+    }
+
+    .round-box::before {
+      top: 0;
+      left: 0;
+      border-top: 2px solid var(--c3);
+      border-left: 2px solid var(--c3);
+    }
+
+    .round-box::after {
+      right: 0;
+      bottom: 0;
+      border-right: 2px solid var(--c3);
+      border-bottom: 2px solid var(--c3);
+    }
+
+    .round-kicker {
+      margin-bottom: 10px;
+      color: var(--c3);
+      font-size: 0.72rem;
+      font-weight: 950;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .round-title {
+      margin-bottom: 10px;
+      color: var(--white);
+      font-family: Syne, Outfit, sans-serif;
+      font-size: clamp(1.45rem, 5vw, 2.1rem);
+      font-weight: 950;
+      line-height: 1.05;
+    }
+
+    .round-copy {
+      margin-bottom: 22px;
+      color: var(--c4);
+      line-height: 1.55;
+    }
+
+    .round-answer {
+      color: var(--white);
+      font-weight: 950;
+    }
+
+    .shake { animation: shake 0.26s ease; }
+    .pop { animation: pop 0.3s ease; }
+
+    @keyframes shake {
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    @keyframes pop {
+      45% { transform: scale(1.04); }
+    }
+
+    @media (max-width: 820px) {
+      body { padding: 10px; }
+      .game {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .stage {
+        min-height: 280px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .drawing-wrap { width: min(260px, 72vw); }
+      header { align-items: stretch; flex-direction: column; }
+      .score { grid-template-columns: repeat(3, 1fr); min-width: 0; }
+      .keyboard { grid-template-columns: repeat(7, 1fr); }
+      .message { align-items: stretch; flex-direction: column; }
+      .button { width: 100%; }
+      .round-box { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="game">
+    <section class="stage" id="stage">
+      <div class="brand">Kenth Word Lab</div>
+      <div class="drawing-wrap">
+        <svg viewBox="0 0 320 320" aria-label="Hangman drawing">
+          <path class="gallows" d="M58 278h205M92 278V48h132M224 48v44" />
+          <circle class="person head" data-part cx="224" cy="122" r="31" />
+          <path class="person" data-part d="M224 153v72" />
+          <path class="person" data-part d="M224 174l-48 36" />
+          <path class="person" data-part d="M224 174l48 36" />
+          <path class="person" data-part d="M224 224l-43 52" />
+          <path class="person" data-part d="M224 224l43 52" />
+        </svg>
+      </div>
+    </section>
+
+    <section class="panel">
+      <header>
+        <div>
+          <h1>Hangman</h1>
+          <p>Guess the hidden word one letter at a time.</p>
+        </div>
+        <div class="score">
+          <span>Wins <strong id="wins">0</strong></span>
+          <span>Streak <strong id="streak">0</strong></span>
+          <span>Best <strong id="best">0</strong></span>
+        </div>
+      </header>
+
+      <div class="info">
+        <div class="chip">Category <strong id="category">-</strong></div>
+        <div class="chip">Mistakes <strong id="mistakes">0 / 6</strong></div>
+        <div class="chip">Hint <strong id="hint">-</strong></div>
+      </div>
+
+      <div>
+        <div class="question-card">
+          <div class="question-label">// Question</div>
+          <div class="question" id="question">-</div>
+        </div>
+        <div class="word" id="word"></div>
+      </div>
+
+      <div class="keyboard" id="keyboard"></div>
+
+      <div class="message" id="message">
+        <div>
+          <strong>Ready?</strong>
+          Pick a letter or use your physical keyboard.
+        </div>
+        <button class="button" id="newRound" type="button">New Word</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="round-overlay" id="roundOverlay" role="dialog" aria-modal="true" aria-labelledby="roundTitle">
+    <div class="round-box">
+      <div class="round-kicker">// Correct</div>
+      <h2 class="round-title" id="roundTitle">Task Complete</h2>
+      <p class="round-copy">You solved <span class="round-answer" id="roundAnswer">-</span>. Proceed to the next word.</p>
+      <button class="button" id="nextRound" type="button">Proceed to Next Word</button>
+    </div>
+  </div>
+
+  <script>
+    const entries = [
+      { word: "JAVASCRIPT", category: "Coding", hint: "Browser language", question: "What programming language is commonly used to add interactivity to websites?" },
+      { word: "PORTFOLIO", category: "Career", hint: "Work showcase", question: "What do designers and developers use to showcase their best projects?" },
+      { word: "NEON", category: "Style", hint: "Glowing light", question: "What bright glowing style is often used in futuristic cyber designs?" },
+      { word: "DUNGEON", category: "Games", hint: "Underground challenge", question: "In fantasy games, what dangerous underground place is filled with enemies and treasure?" },
+      { word: "PIXEL", category: "Games", hint: "Tiny image unit", question: "What is the smallest visible square unit of a digital image?" },
+      { word: "KEYBOARD", category: "Computer", hint: "Typing device", question: "What computer device do you use to type letters?" },
+      { word: "ADVENTURE", category: "Story", hint: "Risky journey", question: "What do we call an exciting journey with danger, discovery, and challenges?" },
+      { word: "HANGMAN", category: "Classic", hint: "Letter guessing", question: "What classic word game asks you to guess a hidden word one letter at a time?" },
+      { word: "MYSTERY", category: "Story", hint: "Unknown answer", question: "What type of story revolves around solving something unknown?" },
+      { word: "CYBERSPACE", category: "Sci-Fi", hint: "Digital world", question: "What sci-fi term describes a virtual digital world or network space?" },
+      { word: "BROWSER GAME", category: "Web", hint: "Playable online", question: "What do you call a game that can be played directly inside a web browser?" },
+      { word: "FRONTEND", category: "Coding", hint: "Visible app side", question: "What part of web development focuses on the user interface and what visitors see?" }
+    ];
+
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    const state = {
+      entry: null,
+      guessed: new Set(),
+      mistakes: 0,
+      wins: 0,
+      streak: 0,
+      best: 0,
+      over: false
+    };
+
+    const els = {
+      stage: document.getElementById("stage"),
+      word: document.getElementById("word"),
+      keyboard: document.getElementById("keyboard"),
+      category: document.getElementById("category"),
+      question: document.getElementById("question"),
+      hint: document.getElementById("hint"),
+      mistakes: document.getElementById("mistakes"),
+      message: document.getElementById("message"),
+      newRound: document.getElementById("newRound"),
+      wins: document.getElementById("wins"),
+      streak: document.getElementById("streak"),
+      best: document.getElementById("best"),
+      roundOverlay: document.getElementById("roundOverlay"),
+      roundAnswer: document.getElementById("roundAnswer"),
+      nextRound: document.getElementById("nextRound"),
+      parts: Array.from(document.querySelectorAll("[data-part]"))
+    };
+
+    function pickEntry() {
+      let next = entries[Math.floor(Math.random() * entries.length)];
+      if (state.entry && entries.length > 1) {
+        while (next.word === state.entry.word) {
+          next = entries[Math.floor(Math.random() * entries.length)];
+        }
+      }
+      return next;
+    }
+
+    function startRound() {
+      state.entry = pickEntry();
+      state.guessed = new Set();
+      state.mistakes = 0;
+      state.over = false;
+      els.roundOverlay.classList.remove("show");
+      els.category.textContent = state.entry.category;
+      els.hint.textContent = state.entry.hint;
+      els.question.textContent = state.entry.question;
+      setMessage("New word loaded.", "Choose a letter to begin.");
+      render();
+    }
+
+    function render() {
+      renderWord();
+      renderKeyboard();
+      renderDrawing();
+      els.mistakes.textContent = `${state.mistakes} / ${els.parts.length}`;
+      els.wins.textContent = state.wins;
+      els.streak.textContent = state.streak;
+      els.best.textContent = state.best;
+    }
+
+    function renderWord() {
+      els.word.innerHTML = "";
+      state.entry.word.split("").forEach(letter => {
+        const box = document.createElement("div");
+        box.className = letter === " " ? "letter-box space" : "letter-box";
+        box.textContent = letter === " " ? "" : state.guessed.has(letter) || state.over ? letter : "";
+        els.word.appendChild(box);
+      });
+    }
+
+    function renderKeyboard() {
+      els.keyboard.innerHTML = "";
+      alphabet.forEach(letter => {
+        const key = document.createElement("button");
+        key.className = "key";
+        key.type = "button";
+        key.textContent = letter;
+        key.disabled = state.over || state.guessed.has(letter);
+        if (state.guessed.has(letter)) {
+          key.classList.add(state.entry.word.includes(letter) ? "good" : "bad");
+        }
+        key.addEventListener("click", () => guess(letter));
+        els.keyboard.appendChild(key);
+      });
+    }
+
+    function renderDrawing() {
+      els.parts.forEach((part, index) => {
+        part.classList.toggle("visible", index < state.mistakes);
+      });
+    }
+
+    function guess(letter) {
+      if (state.over || state.guessed.has(letter)) return;
+      state.guessed.add(letter);
+      if (state.entry.word.includes(letter)) {
+        els.word.classList.remove("pop");
+        void els.word.offsetWidth;
+        els.word.classList.add("pop");
+        setMessage("Nice guess.", `${letter} is in the word.`);
+      } else {
+        state.mistakes += 1;
+        els.stage.classList.remove("shake");
+        void els.stage.offsetWidth;
+        els.stage.classList.add("shake");
+        setMessage("Not this time.", `${letter} is not in the word.`);
+      }
+      checkEnd();
+      render();
+    }
+
+    function checkEnd() {
+      const solved = state.entry.word.split("").every(letter => letter === " " || state.guessed.has(letter));
+      if (solved) {
+        state.over = true;
+        state.wins += 1;
+        state.streak += 1;
+        state.best = Math.max(state.best, state.streak);
+        setMessage("You won!", `The answer was ${state.entry.word}.`);
+        showRoundComplete();
+      } else if (state.mistakes >= els.parts.length) {
+        state.over = true;
+        state.streak = 0;
+        setMessage("Game over.", `The answer was ${state.entry.word}.`);
+      }
+    }
+
+    function setMessage(title, body) {
+      els.message.querySelector("div").innerHTML = `<strong>${title}</strong>${body}`;
+    }
+
+    function showRoundComplete() {
+      els.roundAnswer.textContent = state.entry.word;
+      els.roundOverlay.classList.add("show");
+    }
+
+    window.addEventListener("keydown", event => {
+      const letter = event.key.toUpperCase();
+      if (/^[A-Z]$/.test(letter)) guess(letter);
+      if (event.key === "Enter" && state.over) startRound();
+    });
+
+    els.newRound.addEventListener("click", startRound);
+    els.nextRound.addEventListener("click", startRound);
+    startRound();
+  </script>
+</body>
+</html>
