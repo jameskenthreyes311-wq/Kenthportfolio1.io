@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kenth Hangman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --c1: #0C1E22;
@@ -441,7 +443,44 @@
   </style>
 </head>
 <body>
-  <main class="game">
+
+  <!-- Header matching other KENTH.SYS games -->
+  <header style="
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 0.5rem;
+    padding: 1rem 5%;
+    border-bottom: 1px solid rgba(88,108,119,0.25);
+    background: rgba(12,30,34,0.85);
+    backdrop-filter: blur(14px);
+    font-family: 'Syne', sans-serif;
+  ">
+    <a href="index.html#games" style="
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgba(0,212,255,0.3);
+      color: #00d4ff;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-decoration: none;
+      background: rgba(0,212,255,0.06);
+      transition: all 0.25s;
+    " onmouseover="this.style.background='rgba(0,212,255,0.14)';this.style.boxShadow='0 0 14px rgba(0,212,255,0.25)';"
+       onmouseout="this.style.background='rgba(0,212,255,0.06)';this.style.boxShadow='none';">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      BACK
+    </a>
+    <div style="font-size:1.1rem;font-weight:800;letter-spacing:0.12em;color:#E8EDEF;">
+      <span style="color:rgba(88,108,119,0.7);">[</span>KENTH.SYS<span style="color:rgba(88,108,119,0.7);">]</span>
+    </div>
+    <div style="font-size:0.72rem;font-weight:600;letter-spacing:0.16em;color:#A0A3A8;">HANGMAN PROTOCOL v1.0</div>
+    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;font-weight:600;letter-spacing:0.14em;color:#4CAF82;">
+      <span style="width:6px;height:6px;border-radius:50%;background:#4CAF82;box-shadow:0 0 8px #4CAF82;animation:blink 2s ease-in-out infinite;display:inline-block;"></span>
+      WORD ONLINE
+    </div>
+  </header>
+
+  <main class="game" style="margin-top: 64px;">
     <section class="stage" id="stage">
       <div class="brand">Kenth Word Lab</div>
       <div class="drawing-wrap">
