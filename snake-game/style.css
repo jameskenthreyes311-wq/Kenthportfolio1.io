@@ -88,19 +88,26 @@ header {
   backdrop-filter: blur(14px);
 }
 .back-link {
-  border: 1px solid var(--border);
-  color: var(--c4);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(0,212,255,0.3);
+  color: #00d4ff;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-decoration: none;
-  padding: 0.55rem 0.85rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.16em;
-  font-weight: 800;
+  background: rgba(0,212,255,0.06);
   transition: all 0.25s;
+  flex-shrink: 0;
 }
 .back-link:hover {
-  color: var(--cyan);
-  border-color: var(--cyan);
-  box-shadow: 0 0 16px rgba(0,212,255,0.15);
+  background: rgba(0,212,255,0.14);
+  border-color: #00d4ff;
+  box-shadow: 0 0 14px rgba(0,212,255,0.25);
+  transform: translateX(-2px);
 }
 .header-logo {
   font-family: 'Syne', sans-serif;
