@@ -106,6 +106,30 @@ header {
   backdrop-filter: blur(14px);
 }
 
+/* ── Back Button ─────────────────────────────────────────────────── */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border-cyan);
+  color: var(--cyan);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  background: rgba(0,212,255,0.06);
+  transition: all 0.25s;
+  flex-shrink: 0;
+}
+.back-btn:hover {
+  background: rgba(0,212,255,0.14);
+  border-color: var(--cyan);
+  box-shadow: 0 0 14px rgba(0,212,255,0.25);
+  transform: translateX(-2px);
+}
+
 .header-logo {
   font-family: 'Syne', sans-serif;
   font-size: 1.1rem; font-weight: 800;
