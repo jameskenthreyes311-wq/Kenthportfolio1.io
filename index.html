@@ -1493,6 +1493,20 @@
       font-size: 0.88rem;
       transition: all 0.3s;
       background: rgba(45, 74, 82, 0.05);
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .contact-link > div {
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .contact-link > div > *:not(.contact-link-label) {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .contact-link:hover {
@@ -1504,6 +1518,7 @@
 
     .contact-link-icon {
       font-size: 1.1rem;
+      flex-shrink: 0;
     }
 
     .contact-link-label {
